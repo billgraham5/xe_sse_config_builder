@@ -60,6 +60,15 @@ label {
   color: var(--muted);
 }
 
+.top-instructions {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.top-instructions textarea {
+  min-height: 92px;
+}
+
 input[type="text"], input:not([type]), textarea {
   width: 100%;
   border: 1px solid var(--line);
