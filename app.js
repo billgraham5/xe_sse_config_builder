@@ -73,8 +73,21 @@ function validateEcmpCount(ecmpCount) {
   }
 }
 
-function buildRouter(router, psk, ecmpCount) {
+function validateTunnelIds(orgId, suffix) {
+  if (!/^\d{7}$/.test(orgId)) {
+    throw new Error("Org ID must be exactly 7 digits.");
+  }
+  if (!/^\d{9}$/.test(suffix)) {
+    throw new Error("Tunnel ID suffix must be exactly 9 digits.");
+  }
+}
+
+function buildRouter(router, psk, ecmpCount, orgId) {
   validateEcmpCount(ecmpCount);
+  validateTunnelIds(orgId, router.primaryId);
+  validateTunnelIds(orgId, router.secondaryId);
+  const primaryFullId = `${orgId}-${router.primaryId}`;
+  const secondaryFullId = `${orgId}-${router.secondaryId}`;
 
   const lines = [
     `! Generated for ${router.name}`,
@@ -102,10 +115,10 @@ function buildRouter(router, psk, ecmpCount) {
   ];
 
   for (let i = 1; i <= ecmpCount; i += 1) {
-    lines.push(...ikeProfile(`sse-primary-${i}`, router.primaryIP, `${router.name}+tunnel${i}@${router.primaryId}-sse.cisco.com`));
+    lines.push(...ikeProfile(`sse-primary-${i}`, router.primaryIP, `${router.name}+tunnel${i}@${primaryFullId}-sse.cisco.com`));
   }
   for (let i = 1; i <= ecmpCount; i += 1) {
-    lines.push(...ikeProfile(`sse-secondary-${i}`, router.secondaryIP, `${router.name}+tunnel${i}@${router.secondaryId}-sse.cisco.com`));
+    lines.push(...ikeProfile(`sse-secondary-${i}`, router.secondaryIP, `${router.name}+tunnel${i}@${secondaryFullId}-sse.cisco.com`));
   }
 
   lines.push(
@@ -247,6 +260,7 @@ function collect() {
   return {
     router1,
     router2,
+    orgId: value("orgId"),
     psk: value("psk"),
     ecmpCount: numberValue("ecmpCount")
   };
@@ -258,8 +272,8 @@ function generate() {
   try {
     const input = collect();
     const config = [
-      buildRouter(input.router1, input.psk, input.ecmpCount),
-      buildRouter(input.router2, input.psk, input.ecmpCount)
+      buildRouter(input.router1, input.psk, input.ecmpCount, input.orgId),
+      buildRouter(input.router2, input.psk, input.ecmpCount, input.orgId)
     ].join("\n\n");
     out.value = config;
     err.textContent = "";
