@@ -16,7 +16,13 @@ No install, server, or internet access required.
 
 - Router 1: `C4, C8, C9, C12, C13, C16, C17, C35`
 - Router 2: `C5, C20, C21, C24, C25, C28, C29, C56`
-- Shared: `C32, C79, C80` plus custom `ECMP Tunnels (1-10)`
+- Shared: `C32` plus custom `ECMP Tunnels (1-10)`
+
+## Route-Map Behavior
+
+- `TO_SSE_EXPORT` is generated as:
+  - `route-map TO_SSE_EXPORT deny 999`
+- Permit entries 5/10/15 are not generated.
 
 ## ECMP Behavior
 

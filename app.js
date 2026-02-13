@@ -2,10 +2,6 @@ function value(id) {
   return document.getElementById(id).value.trim();
 }
 
-function checked(id) {
-  return document.getElementById(id).checked;
-}
-
 function numberValue(id) {
   return Number(document.getElementById(id).value);
 }
@@ -77,7 +73,7 @@ function validateEcmpCount(ecmpCount) {
   }
 }
 
-function buildRouter(router, psk, advSdwan, advCloud, ecmpCount) {
+function buildRouter(router, psk, ecmpCount) {
   validateEcmpCount(ecmpCount);
 
   const lines = [
@@ -217,30 +213,10 @@ function buildRouter(router, psk, advSdwan, advCloud, ecmpCount) {
     "",
     "route-map FROM_SSE_IMPORT deny 999",
     "ip bgp-community new-format",
-    ""
+    "",
+    "route-map TO_SSE_EXPORT deny 999",
+    "!"
   );
-
-  if (advCloud) {
-    lines.push(
-      "route-map TO_SSE_EXPORT permit 5",
-      " match ip address prefix-list AZURE_CENTRAL_PREFIXES",
-      " set as-path prepend 64514 64514 64514",
-      "!"
-    );
-  }
-
-  if (advSdwan) {
-    lines.push(
-      "route-map TO_SSE_EXPORT permit 10",
-      " match ip address prefix-list RFC1918_SUMMARIES",
-      " set as-path prepend 64514 64514 64514",
-      "!",
-      "route-map TO_SSE_EXPORT permit 15",
-      " match ip address prefix-list CISCO_MGMT_IOS",
-      " set as-path prepend 64514 64514",
-      "!"
-    );
-  }
 
   lines.push("!", "!", "!", "!");
   return lines.join("\n");
@@ -271,8 +247,6 @@ function collect() {
     router1,
     router2,
     psk: value("psk"),
-    advSdwan: checked("advSdwan"),
-    advCloud: checked("advCloud"),
     ecmpCount: numberValue("ecmpCount")
   };
 }
@@ -283,8 +257,8 @@ function generate() {
   try {
     const input = collect();
     const config = [
-      buildRouter(input.router1, input.psk, input.advSdwan, input.advCloud, input.ecmpCount),
-      buildRouter(input.router2, input.psk, input.advSdwan, input.advCloud, input.ecmpCount)
+      buildRouter(input.router1, input.psk, input.ecmpCount),
+      buildRouter(input.router2, input.psk, input.ecmpCount)
     ].join("\n\n");
     out.value = config;
     err.textContent = "";
