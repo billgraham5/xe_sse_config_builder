@@ -226,13 +226,12 @@ function buildRouter(router, psk, ecmpCount, orgId) {
     " 10 permit ip 100.64.255.0 0.0.0.255 any",
     "",
     "route-map FROM_SSE_IMPORT deny 999",
-    "ip bgp-community new-format",
-    "",
     "route-map TO_SSE_EXPORT deny 999",
+    "! See BGP policy config builder tool; otherwise no prefixes will be imported or exported.",
     "!"
   );
 
-  lines.push("!", "!", "!", "!");
+  lines.push("!", "!", "!", "!", "ip bgp-community new-format");
   return lines.join("\n");
 }
 
