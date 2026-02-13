@@ -69,7 +69,7 @@ label {
   min-height: 92px;
 }
 
-input[type="text"], input:not([type]), textarea {
+input[type="text"], input:not([type]), select, textarea {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;

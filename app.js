@@ -6,6 +6,36 @@ function numberValue(id) {
   return Number(document.getElementById(id).value);
 }
 
+const ciscoDcOptions = [
+  "prod_csc_us-east-1_1_0 - MIAMI-2",
+  "prod_csc_us-east-1_1_1 - RESTON-1",
+  "prod_csc_us-west-1_1_0 - LOSANGELES-2",
+  "prod_csc_us-west-1_1_1 - SANJOSE-6",
+  "prod_aws_us-east-2_1_0 - COLUMBUS-1",
+  "prod_aws_us-east-2_1_1 - COLUMBUS-2",
+  "prod_aws_us-west-2_1_0 - PORTLAND-1",
+  "prod_aws_us-west-2_1_1 - PORTLAND-2"
+];
+
+function populateCiscoDcSelects() {
+  const selectIds = ["r1PrimaryDc", "r1SecondaryDc", "r2PrimaryDc", "r2SecondaryDc"];
+  for (const id of selectIds) {
+    const select = document.getElementById(id);
+    select.innerHTML = "";
+    for (const optionValue of ciscoDcOptions) {
+      const option = document.createElement("option");
+      option.value = optionValue;
+      option.textContent = optionValue;
+      select.appendChild(option);
+    }
+  }
+
+  document.getElementById("r1PrimaryDc").value = "prod_aws_us-east-2_1_0 - COLUMBUS-1";
+  document.getElementById("r1SecondaryDc").value = "prod_aws_us-east-2_1_1 - COLUMBUS-2";
+  document.getElementById("r2PrimaryDc").value = "prod_csc_us-west-1_1_0 - LOSANGELES-2";
+  document.getElementById("r2SecondaryDc").value = "prod_csc_us-west-1_1_1 - SANJOSE-6";
+}
+
 function addToIPv4(ip, offset) {
   const parts = ip.split(".").map(Number);
   if (parts.length !== 4 || parts.some((n) => Number.isNaN(n) || n < 0 || n > 255)) {
@@ -240,8 +270,10 @@ function collect() {
     name: value("r1Name"),
     primaryIP: value("r1PrimaryIP"),
     primaryId: value("r1PrimaryId"),
+    primaryDc: value("r1PrimaryDc"),
     secondaryIP: value("r1SecondaryIP"),
     secondaryId: value("r1SecondaryId"),
+    secondaryDc: value("r1SecondaryDc"),
     rid: value("r1Rid"),
     asn: value("r1Asn"),
     baseIP: value("r1BaseIP")
@@ -250,8 +282,10 @@ function collect() {
     name: value("r2Name"),
     primaryIP: value("r2PrimaryIP"),
     primaryId: value("r2PrimaryId"),
+    primaryDc: value("r2PrimaryDc"),
     secondaryIP: value("r2SecondaryIP"),
     secondaryId: value("r2SecondaryId"),
+    secondaryDc: value("r2SecondaryDc"),
     rid: value("r2Rid"),
     asn: value("r2Asn"),
     baseIP: value("r2BaseIP")
@@ -306,4 +340,5 @@ document.getElementById("download").addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
+populateCiscoDcSelects();
 generate();

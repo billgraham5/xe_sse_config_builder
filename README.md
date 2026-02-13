@@ -17,6 +17,7 @@ No install, server, or internet access required.
 - Router 1: `C4, C8, C9-suffix, C12, C13-suffix, C16, C17, C35`
 - Router 2: `C5, C20, C21-suffix, C24, C25-suffix, C28, C29, C56`
 - Shared: `Org ID (7 digits)`, `C32`, plus custom `ECMP Tunnels (1-10)`
+- Additional form-only fields: Cisco DC Name dropdowns for each router primary/secondary tunnel.
 
 Tunnel IDs are composed as:
 - `<OrgID>-<9-digit suffix>`
