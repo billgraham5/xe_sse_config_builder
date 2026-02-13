@@ -15,49 +15,49 @@
         <textarea id="manualInstructions" rows="4" placeholder="Input information for both routers from the Cisco Secure Access Admin UI (Network Tunnel Groups) and the pre-exising C8000V BGP router configuration.  This sample is based on a default Azure C8000V deployment using two routers intended for inter-region redundancy."></textarea>
       </label>
       <div class="grid">
-        <label>Org ID (7 digits, shared)<input id="orgId" value="0000000"></label>
+        <label>Org ID (7 digits)<input id="orgId" value="0000000"></label>
       </div>
 
       <h2>Router 1</h2>
       <div class="grid">
-        <label>Router Name (C4)<input id="r1Name" value="router-1"></label>
-        <label>Primary Head-End IP (C8)<input id="r1PrimaryIP" value="3.141.141.165"></label>
-        <label>Primary Tunnel ID Suffix (9 digits, C9)<input id="r1PrimaryId" value="000000000"></label>
-        <label>Cisco DC Name (Primary)
+        <label>Router Name<input id="r1Name" value="router-1"></label>
+        <label>Cisco SSE Head-end IP address (primary)<input id="r1PrimaryIP" value="3.141.141.165"></label>
+        <label>Primary Tunnel ID Suffix (9 digits)<input id="r1PrimaryId" value="000000000"></label>
+        <label>Cisco DC Name (primary)
           <select id="r1PrimaryDc"></select>
         </label>
-        <label>Secondary Head-End IP (C12)<input id="r1SecondaryIP" value="3.140.13.195"></label>
-        <label>Secondary Tunnel ID Suffix (9 digits, C13)<input id="r1SecondaryId" value="111111111"></label>
-        <label>Cisco DC Name (Secondary)
+        <label>Cisco SSE Head-end IP address (secondary)<input id="r1SecondaryIP" value="3.140.13.195"></label>
+        <label>Secondary Tunnel ID Suffix (9 digits)<input id="r1SecondaryId" value="111111111"></label>
+        <label>Cisco DC Name (secondary)
           <select id="r1SecondaryDc"></select>
         </label>
-        <label>BGP Router ID (C16)<input id="r1Rid" value="10.255.0.5"></label>
-        <label>Local ASN (C17)<input id="r1Asn" value="65461"></label>
-        <label>Tunnel Base IP /28 block (C35)<input id="r1BaseIP" value="10.7.15.64"></label>
+        <label>BGP Router ID<input id="r1Rid" value="10.255.0.5"></label>
+        <label>Local ASN<input id="r1Asn" value="65461"></label>
+        <label>Tunnel Base IP /28 block<input id="r1BaseIP" value="10.7.15.64"></label>
       </div>
 
       <h2>Router 2</h2>
       <div class="grid">
-        <label>Router Name (C5)<input id="r2Name" value="router-2"></label>
-        <label>Primary Head-End IP (C20)<input id="r2PrimaryIP" value="3.141.141.165"></label>
-        <label>Primary Tunnel ID Suffix (9 digits, C21)<input id="r2PrimaryId" value="000000000"></label>
-        <label>Cisco DC Name (Primary)
+        <label>Router Name<input id="r2Name" value="router-2"></label>
+        <label>Cisco SSE Head-end IP address (primary)<input id="r2PrimaryIP" value="3.141.141.165"></label>
+        <label>Primary Tunnel ID Suffix (9 digits)<input id="r2PrimaryId" value="000000000"></label>
+        <label>Cisco DC Name (primary)
           <select id="r2PrimaryDc"></select>
         </label>
-        <label>Secondary Head-End IP (C24)<input id="r2SecondaryIP" value="3.140.13.195"></label>
-        <label>Secondary Tunnel ID Suffix (9 digits, C25)<input id="r2SecondaryId" value="111111111"></label>
-        <label>Cisco DC Name (Secondary)
+        <label>Cisco SSE Head-end IP address (secondary)<input id="r2SecondaryIP" value="3.140.13.195"></label>
+        <label>Secondary Tunnel ID Suffix (9 digits)<input id="r2SecondaryId" value="111111111"></label>
+        <label>Cisco DC Name (secondary)
           <select id="r2SecondaryDc"></select>
         </label>
-        <label>BGP Router ID (C28)<input id="r2Rid" value="10.53.0.198"></label>
-        <label>Local ASN (C29)<input id="r2Asn" value="64517"></label>
-        <label>Tunnel Base IP /28 block (C56)<input id="r2BaseIP" value="10.7.15.32"></label>
+        <label>BGP Router ID<input id="r2Rid" value="10.53.0.198"></label>
+        <label>Local ASN<input id="r2Asn" value="64517"></label>
+        <label>Tunnel Base IP /28 block<input id="r2BaseIP" value="10.7.15.32"></label>
       </div>
 
       <h2>Shared</h2>
       <div class="grid">
-        <label>Pre-Shared Key (C32)<input id="psk" value="ChangeMe-PSK-2026"></label>
-        <label>ECMP Tunnels (per head-end, 1-10)<input id="ecmpCount" type="number" min="1" max="10" step="1" value="2"></label>
+        <label>Pre-Shared Key<input id="psk" value="ChangeMe-PSK-2026"></label>
+        <label>ECMP Tunnels per head-end (1-10)<input id="ecmpCount" type="number" min="1" max="10" step="1" value="2"></label>
       </div>
     </section>
 
