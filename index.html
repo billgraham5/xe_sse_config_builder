@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IOS-XE Config Builder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="layout">
+    <section class="panel form-panel">
+      <h1>IOS-XE Secure Access Config Builder</h1>
+      <p class="subtle">Built from <code>IPSEC_BGP_XE_CONFIG</code> + <code>_cfg_parts</code></p>
+
+      <h2>Router 1</h2>
+      <div class="grid">
+        <label>Router Name (C4)<input id="r1Name" value="CiscoIOSA-vHub-CentralUS"></label>
+        <label>Primary Head-End IP (C8)<input id="r1PrimaryIP" value="3.141.141.165"></label>
+        <label>Primary Tunnel ID (C9)<input id="r1PrimaryId" value="8363425-667481483"></label>
+        <label>Secondary Head-End IP (C12)<input id="r1SecondaryIP" value="3.140.13.195"></label>
+        <label>Secondary Tunnel ID (C13)<input id="r1SecondaryId" value="8363425-667481484"></label>
+        <label>BGP Router ID (C16)<input id="r1Rid" value="10.255.0.5"></label>
+        <label>Local ASN (C17)<input id="r1Asn" value="65461"></label>
+        <label>Tunnel Base IP (C35)<input id="r1BaseIP" value="10.7.15.64"></label>
+      </div>
+
+      <h2>Router 2</h2>
+      <div class="grid">
+        <label>Router Name (C5)<input id="r2Name" value="CiscoIOSB-EastUS-Region"></label>
+        <label>Primary Head-End IP (C20)<input id="r2PrimaryIP" value="3.141.141.165"></label>
+        <label>Primary Tunnel ID (C21)<input id="r2PrimaryId" value="8363425-667398686"></label>
+        <label>Secondary Head-End IP (C24)<input id="r2SecondaryIP" value="3.140.13.195"></label>
+        <label>Secondary Tunnel ID (C25)<input id="r2SecondaryId" value="8363425-667398687"></label>
+        <label>BGP Router ID (C28)<input id="r2Rid" value="10.53.0.198"></label>
+        <label>Local ASN (C29)<input id="r2Asn" value="64517"></label>
+        <label>Tunnel Base IP (C56)<input id="r2BaseIP" value="10.7.15.32"></label>
+      </div>
+
+      <h2>Shared</h2>
+      <div class="grid">
+        <label>Pre-Shared Key (C32)<input id="psk" value="ll0wN3t3ng123456"></label>
+        <label>ECMP Tunnels (per head-end, 1-10)<input id="ecmpCount" type="number" min="1" max="10" step="1" value="2"></label>
+      </div>
+      <div class="toggles">
+        <label><input id="advSdwan" type="checkbox" checked>Advertise SD-WAN Prefixes (C79)</label>
+        <label><input id="advCloud" type="checkbox" checked>Advertise Cloud Prefixes (C80)</label>
+      </div>
+    </section>
+
+    <section class="panel output-panel">
+      <div class="actions">
+        <button id="generate">Generate</button>
+        <button id="copy">Copy</button>
+        <button id="download">Download .txt</button>
+      </div>
+      <p id="error" class="error"></p>
+      <textarea id="output" spellcheck="false"></textarea>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
