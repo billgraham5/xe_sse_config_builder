@@ -39,7 +39,7 @@ function ikeProfile(name, remoteIP, localEmail) {
     " authentication remote pre-share",
     " authentication local pre-share",
     " keyring local sse-kr",
-    " dpd 10 3 periodic",
+    " dpd 30 3 periodic",
     "!"
   ];
 }
@@ -158,6 +158,7 @@ function buildRouter(router, psk, ecmpCount) {
     "",
     `router bgp ${router.asn}`,
     ` bgp router-id ${router.rid}`,
+    " maximum-paths 10",
     " bgp log-neighbor-changes",
     " neighbor CISCO_SSE peer-group",
     " neighbor CISCO_SSE remote-as 32644"
