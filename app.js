@@ -84,9 +84,10 @@ function loopback(num, desc) {
   ];
 }
 
-function tunnel(num, address, sourceLoopback, destination, profile) {
+function tunnel(num, address, sourceLoopback, destination, profile, dcName) {
   return [
     `interface Tunnel${num}`,
+    ` description "Tunnel to ${dcName}"`,
     ` ip address ${address} 255.255.255.255`,
     " ip tcp adjust-mss 1350",
     ` tunnel source Loopback${sourceLoopback}`,
@@ -187,12 +188,12 @@ function buildRouter(router, psk, ecmpCount, orgId) {
   for (let i = 1; i <= ecmpCount; i += 1) {
     const tunnelNumber = getPrimaryTunnelNumber(i);
     const tunnelIP = addToIPv4(router.baseIP, i - 1);
-    lines.push(...tunnel(tunnelNumber, tunnelIP, tunnelNumber, router.primaryIP, `sse-ipsec-primary-${i}`));
+    lines.push(...tunnel(tunnelNumber, tunnelIP, tunnelNumber, router.primaryIP, `sse-ipsec-primary-${i}`, router.primaryDc));
   }
   for (let i = 1; i <= ecmpCount; i += 1) {
     const tunnelNumber = getSecondaryTunnelNumber(i);
     const tunnelIP = addToIPv4(router.baseIP, 9 + i);
-    lines.push(...tunnel(tunnelNumber, tunnelIP, tunnelNumber, router.secondaryIP, `sse-ipsec-secondary-${i}`));
+    lines.push(...tunnel(tunnelNumber, tunnelIP, tunnelNumber, router.secondaryIP, `sse-ipsec-secondary-${i}`, router.secondaryDc));
   }
 
   lines.push(
